@@ -3,8 +3,8 @@
 Shows how to display some items in a simple list using the `RecyclerView` and `RecycleView.Adapter`.
 
 The `RecycleView` is the entity that displays the list to the user on the layout of your Ui. </br>
-The `RecyclerView.Adapter<T>` is the entity that adapts and manipulates the data to the recycler to be displayed on the user interface later when
-rendering the android view. </br>
+The `RecyclerView.Adapter<T>` is the entity that adapts and manipulates to the recycler to be displayed on the user interface later when
+rendering the android view, it also updates the data with their respective views. </br>
 
 ## Steps to rebuild this example : 
 - Create a MainActivity class :
