@@ -6,7 +6,7 @@ The `RecycleView` is the entity that displays the list to the user on the layout
 The `RecyclerView.Adapter<T>` is the entity that adapts and manipulates to the recycler to be displayed on the user interface later when
 rendering the android view, it also updates the data with their respective views. </br>
 
-## Steps to rebuild this example : 
+## Prepare your Ui : 
 - Create a MainActivity class :
 ```kt
 package com.example.session2
@@ -110,4 +110,46 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
+## Bind data to the Ui : 
+- Create a DataModel class and this class would hold the data for each position to be rendered on its respective android views : 
+```kt
+data class ItemModel(val photo: Int, val name: String)
+```
+- Create a `RecyclerView.ViewHolder` that holds the definition of each children views on each position with the recycler list :
+```kt
+import androidx.recyclerview.widget.RecyclerView
 
+class ViewHolder(binding: ItemModelBinding) : RecyclerView.ViewHolder(binding.root) {
+        val photo = binding.image
+        val name = binding.textView
+}
+```
+
+- Create a `RecyclerView.Adapter` that would return an instance of a ViewHolder and adapters data onto the children views on each position : 
+```kt
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.example.session2.databinding.ItemModelBinding
+
+class Adapter(private val list: ArrayList<ItemModel>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflatedView = ItemModelBinding.inflate(LayoutInflater.from(parent.context))
+        return ViewHolder(inflatedView, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = list[position]
+        holder.name.text = item.name
+        holder.photo.setOnClickListener {
+            Toast.makeText(it.context, position.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
+    }
+}
+```
